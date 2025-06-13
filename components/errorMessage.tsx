@@ -20,10 +20,9 @@ export default function ErrorMessage( {props}:{props:errorProps}) {
 
     const emptyMessage:string = `Enter options before running`; // true case
     const dupeMessage:string = `This option already exists`; // false case
-    const errorIcon:ReactElement = <ErrorIcon/>;
 
     return(
-        <div className={`${errorGroupStyle} ${props.errCondition ? `opacity-0` : `opacity-100`}`}>
+        <div className={`${errorGroupStyle} ${props.errCondition ? `opacity-100` : `opacity-0`}`}>
             <ErrorIcon className={`scale-85`}/>
             <p className={`${outfit.className} mr-2`}>{(props.errorType == "empty") ? emptyMessage : (props.errorType == "dupe") ? dupeMessage : ""}</p>
         </div>

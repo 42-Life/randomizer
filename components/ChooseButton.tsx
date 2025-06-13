@@ -3,13 +3,24 @@
 import {outfit} from "@/lib/fonts";
 import {buttonType} from "@/lib/types";
 import {useRouter} from "next/navigation";
+import {useOptionsContext} from "@/lib/ListContext";
+
+// TODO: Fix useContext --> Import isEmpty here --> if isEmpty, then don't re-route and throw error message
 
 export default function ChooseButton({props}: {props:buttonType}) {
 
     const router = useRouter();
+    const { setHasRun, hasRun, isEmpty } = useOptionsContext()
 
+    // Logic for button click. Includes special logic to prevent randomization being called on empty inputs
     const handleClick = () => {
-        props.goto? router.push(`/${props.goto}`) : router.push(`/`);
+        if (!props.isRandomButton || (!props.mkError && !props.isRandomButton)) {
+            // No errors, therefore can continue to page. Also reset hasRun to false, since successful run occurred
+            props.goto? router.push(`/${props.goto}`) : router.push(`/`);
+            if (!hasRun) setHasRun(false);
+        } else if (props.isRandomButton && props.mkError) {
+            setHasRun(true);
+        }
     }
 
     return(
@@ -21,7 +32,6 @@ export default function ChooseButton({props}: {props:buttonType}) {
                 transition duration-750 delay-100 ease-in-out hover:scale-110 
                 drop-shadow-md
                 ${props.isIcon == true ? `px-4 pb-1` :  `px-8 py-3 mr-2`}
-                
             `}
             onClick={handleClick}
         >
