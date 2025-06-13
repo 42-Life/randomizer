@@ -2,10 +2,11 @@
 // (1) EMPTY_ERROR: "Choice" button selected, but options[] array is empty
 // (2) DUPLICATE_ERROR: Option entered on Options page that exists already in options[] array (duplicate)
 
+"use client"
+
 import {outfit} from "@/lib/fonts";
 import ErrorIcon from '@mui/icons-material/Error';
 import {errorProps} from "@/lib/types";
-import {ReactElement} from "react";
 
 const errorGroupStyle = `
     bg-red-500 rounded-full
@@ -22,7 +23,7 @@ export default function ErrorMessage( {props}:{props:errorProps}) {
     const dupeMessage:string = `This option already exists`; // false case
 
     return(
-        <div className={`${errorGroupStyle} ${props.errCondition ? `opacity-100` : `opacity-0`}`}>
+        <div className={`${errorGroupStyle} ${(props.show) ? `opacity-100` : `opacity-0`}`}>
             <ErrorIcon className={`scale-85`}/>
             <p className={`${outfit.className} mr-2`}>{(props.errorType == "empty") ? emptyMessage : (props.errorType == "dupe") ? dupeMessage : ""}</p>
         </div>

@@ -13,6 +13,9 @@ export function OptionsContextProvider({children}:{children?:ReactNode}) {
     // Has the Randomize button been pressed? Used for determining error message display
     const [hasRun, setHasRun] = useState(false);
 
+    // For showing error messages
+    const [showError, setShowError] = useState<boolean>(false);
+
     useEffect(() => {
         if (numOptions <= 0)
             setIsEmpty(true);
@@ -24,7 +27,7 @@ export function OptionsContextProvider({children}:{children?:ReactNode}) {
     // const deleteOption = () => setNumOptions(n => n - 1);
 
     return (
-        <ListContext.Provider value={{numOptions, setNumOptions, isEmpty, setIsEmpty, hasRun, setHasRun}}>
+        <ListContext.Provider value={{numOptions, setNumOptions, isEmpty, setIsEmpty, hasRun, setHasRun, showError, setShowError}}>
             {children}
         </ListContext.Provider>
     );

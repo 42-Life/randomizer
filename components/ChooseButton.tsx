@@ -10,16 +10,16 @@ import {useOptionsContext} from "@/lib/ListContext";
 export default function ChooseButton({props}: {props:buttonType}) {
 
     const router = useRouter();
-    const { setHasRun, hasRun, isEmpty } = useOptionsContext()
+    const { setHasRun, hasRun, setShowError, isEmpty } = useOptionsContext()
 
     // Logic for button click. Includes special logic to prevent randomization being called on empty inputs
     const handleClick = () => {
-        if (!props.isRandomButton || (!props.mkError && !props.isRandomButton)) {
+        if (!props.isRandomButton || (props.isRandomButton && !isEmpty)) {
             // No errors, therefore can continue to page. Also reset hasRun to false, since successful run occurred
             props.goto? router.push(`/${props.goto}`) : router.push(`/`);
-            if (!hasRun) setHasRun(false);
-        } else if (props.isRandomButton && props.mkError) {
-            setHasRun(true);
+            // if (!hasRun) setHasRun(false);
+        } else if (props.isRandomButton) {
+            setShowError(true); // error message shows for random button iff options are non-empty
         }
     }
 

@@ -4,7 +4,6 @@ type buttonDisplay = string | ReactElement;
 
 export type buttonType = {
     display: buttonDisplay;
-    mkError?: boolean;
     isIcon?: boolean;
     goto?: string;
     isRandomButton?: boolean;
@@ -13,6 +12,7 @@ export type buttonType = {
 export type errorProps = {
     errCondition: boolean;
     errorType: string;
+    show: boolean;
 }
 
 export type optionInfo = {
@@ -27,4 +27,6 @@ export type optionsContextType = {
     setIsEmpty: (value:boolean) => void;
     hasRun: boolean;
     setHasRun: (value: boolean) => void;
+    showError: boolean;
+    setShowError: (value: boolean) => void;
 }
